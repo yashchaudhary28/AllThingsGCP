@@ -88,7 +88,7 @@ if __name__ == '__main__':
             zone_val = zone.split(",")
 
             for i in zone_val:
-                x = list_instance(compute, project_id, zone = i)
+                x = list_instance(compute, zone = i, project_id)
                 for j in x:
                     print(f"{j['name']}  {j['zone']}")
 
