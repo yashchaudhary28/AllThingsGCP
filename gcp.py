@@ -50,7 +50,7 @@ def create_instance(compute, project, zone, name, image):
 
 
 #Function to list all the instances in a project.
-def listInstance(compute, zone = 'us-central1-a',  project = 'hazel-logic-302608'):
+def list_instance(compute, zone = 'us-central1-a',  project = 'hazel-logic-302608'):
     result = compute.instances().list(project=project, zone = zone).execute()
     return result['items'] if 'items' in result else none
 
