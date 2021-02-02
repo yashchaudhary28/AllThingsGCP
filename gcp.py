@@ -71,8 +71,6 @@ def delete_instance(compute, name, project =  'hazel-logic-302608', zone = 'us-c
 
 if __name__ == '__main__':
 
-    project_id = input("Enter project id :")
-
     while True:
         print('''What do you want to do?
             1. Create Instance,
@@ -87,6 +85,8 @@ if __name__ == '__main__':
 
         if val == 1:
 
+            project_id = input("Enter project id :")
+
             name = input("Name of the Instance : ")
             zone = input("Zone :")
             os_project = input("OS Image Name :  (All supported images : https://cloud.google.com/compute/docs/images/os-details#general-info)" )
@@ -97,6 +97,8 @@ if __name__ == '__main__':
 
         elif val == 2:
 
+            project_id = input("Enter project id :")
+
             zone = input('Zone :')
             zone_val = zone.split(",")
 
@@ -106,6 +108,8 @@ if __name__ == '__main__':
                     print(f"{j['name']}  {j['zone']}")
 
         elif val == 3:
+
+            project_id = input("Enter project id :")
 
             name = input("Name of the Instance that you want to delete : ")
             zone = input("Zone of the Instance to be deleted : ")
