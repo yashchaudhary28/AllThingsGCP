@@ -76,8 +76,8 @@ if __name__ == '__main__':
 
             name = input("Name of the Instance : ")
             zone = input("Zone :")
-            os_project = input("OS Project name : ")
-            os_family = input("OS family name : ")
+            os_project = input("OS Image Name :  (All supported images : https://cloud.google.com/compute/docs/images/os-details#general-info)" )
+            os_family = input("OS family name :  (All supported images : https://cloud.google.com/compute/docs/images/os-details#general-info)")
             image = disk_image(os_project, os_family)
             create_instance(compute, project_id, zone, name, image)
             print('Your Instance has been created!')
