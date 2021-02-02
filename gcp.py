@@ -1,6 +1,17 @@
 #Importing required libraries
 import googleapiclient.discovery
 
+#Fuction to create a new project.
+def create_project(compute, project_id, name):
+    config = {
+    'project_id' : project_id,
+    'name' : name }
+    return compute.projects().create(body = config).execute()
+
+#Function to list all the projects.
+def list_projects(compute):
+    return compute.projects().list().execute()
+
 #Function which specifies which type of operating system instance is created.
 def disk_image(project, family):
 
@@ -66,7 +77,9 @@ if __name__ == '__main__':
         print('''What do you want to do?
             1. Create Instance,
             2. List Instance,
-            3. Delete Instance''')
+            3. Delete Instance,
+            4. List Projects,
+            5. Create Project''')
 
         val = int(input("Enter what you want to do? "))
 
@@ -79,7 +92,7 @@ if __name__ == '__main__':
             os_project = input("OS Image Name :  (All supported images : https://cloud.google.com/compute/docs/images/os-details#general-info)" )
             os_family = input("OS family name :  (All supported images : https://cloud.google.com/compute/docs/images/os-details#general-info)")
             image = disk_image(os_project, os_family)
-            create_instance(compute, project_id, zone, name, image)
+            print(create_instance(compute, project_id, zone, name, image))
             print('Your Instance has been created!')
 
         elif val == 2:
@@ -97,7 +110,19 @@ if __name__ == '__main__':
             name = input("Name of the Instance that you want to delete : ")
             zone = input("Zone of the Instance to be deleted : ")
 
-            delete_instance(compute, name, project_id, zone)
+            print(delete_instance(compute, name, project_id, zone))
             print(f'{name} has been deleted!')
+        elif val == 4:
+
+            print(list_projects(compute))
+
+        elif val ==5:
+
+            name = input("Enter new Project Name : ")
+            id = input("Enter new project ID : ")
+
+            create_project(compute, id, name)
+            print("{name} Project is created.")
+
         else:
             print("Please provide a valid option.")
