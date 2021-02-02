@@ -58,43 +58,46 @@ def listInstance(compute, zone = 'us-central1-a',  project = 'hazel-logic-302608
 def delete_instance(compute, name, project =  'hazel-logic-302608', zone = 'us-central1-a'):
     return compute.instances().delete(project = project, zone = zone, instance = name).execute()
 
-project_id = input("Enter project id :")
+if __name__ == '__main__':
 
-print('''What do you want to do?
-    1. Create Instance,
-    2. List Instance,
-    3. Delete Instance''')
+    project_id = input("Enter project id :")
 
-val = int(input("Enter what you want to do? "))
+    while True:
+        print('''What do you want to do?
+            1. Create Instance,
+            2. List Instance,
+            3. Delete Instance''')
 
-compute = googleapiclient.discovery.build('compute', 'v1')
+        val = int(input("Enter what you want to do? "))
 
-if val == 1:
+        compute = googleapiclient.discovery.build('compute', 'v1')
 
-    name = input("Name of the Instance : ")
-    zone = input("Zone :")
-    os_project = input("OS Project name : ")
-    os_family = input("OS family name : ")
-    image = disk_image(os_project, os_family)
-    create_instance(compute, project_id, zone, name, image)
-    print('Your Instance has been created!')
+        if val == 1:
 
-elif val == 2:
+            name = input("Name of the Instance : ")
+            zone = input("Zone :")
+            os_project = input("OS Project name : ")
+            os_family = input("OS family name : ")
+            image = disk_image(os_project, os_family)
+            create_instance(compute, project_id, zone, name, image)
+            print('Your Instance has been created!')
 
-    zone = input('Zone :')
-    zone_val = zone.split(",")
+        elif val == 2:
 
-    for i in zone_val:
-        x = list_instance(compute, project_id, zone = i)
-        for j in x:
-            print(f"{j['name']}  {j['zone']}")
+            zone = input('Zone :')
+            zone_val = zone.split(",")
 
-elif val == 3:
+            for i in zone_val:
+                x = list_instance(compute, project_id, zone = i)
+                for j in x:
+                    print(f"{j['name']}  {j['zone']}")
 
-    name = input("Name of the Instance that you want to delete : ")
-    zone = input("Zone of the Instance to be deleted : ")
+        elif val == 3:
 
-    delete_instance(compute, name, project_id, zone)
-    print(f'{name} has been deleted!')
-else:
-    print("Please provide a valid option.")
+            name = input("Name of the Instance that you want to delete : ")
+            zone = input("Zone of the Instance to be deleted : ")
+
+            delete_instance(compute, name, project_id, zone)
+            print(f'{name} has been deleted!')
+        else:
+            print("Please provide a valid option.")
