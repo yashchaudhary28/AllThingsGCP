@@ -125,7 +125,7 @@ if __name__ == '__main__':
 
             projects = list_projects(crm)
             for i in projects:
-                for j in projects:
+                for j in i:
                     print(f"{j['name']}   {j['projectId']}")
 
 
