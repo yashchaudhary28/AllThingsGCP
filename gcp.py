@@ -2,15 +2,18 @@
 import googleapiclient.discovery
 
 #Fuction to create a new project.
-def create_project(compute, project_id, name):
+def create_project(crm, project_id, name):
     config = {
     'project_id' : project_id,
     'name' : name }
-    return compute.projects().create(body = config).execute()
+    return crm.projects().create(body = config).execute()
 
 #Function to list all the projects.
-def list_projects(compute):
-    return compute.projects().list().execute()
+def list_projects(crm):
+    projects = crm.projects().list().execute()
+    projects = projects.values()
+    return projects
+
 
 #Function which specifies which type of operating system instance is created.
 def disk_image(project, family):
@@ -81,6 +84,8 @@ if __name__ == '__main__':
 
         val = int(input("Enter what you want to do? "))
 
+        crm = googleapiclient.discovery.build('cloudresourcemanager', 'v1')
+
         compute = googleapiclient.discovery.build('compute', 'v1')
 
         if val == 1:
@@ -118,7 +123,11 @@ if __name__ == '__main__':
             print(f'{name} has been deleted!')
         elif val == 4:
 
-            print(list_projects(compute))
+            projects = list_projects(crm)
+            for i in projects:
+                for j in projects:
+                    print(f"{j['name']}   {j['projectId']}")
+            
 
         elif val ==5:
 
